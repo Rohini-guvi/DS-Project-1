@@ -43,7 +43,7 @@ class SQLQuerySet:
         ORDERS_TABLE.Restaurant_id as "Restaurant_id",Name,Email,Mobile_number,
         Location,Total_orders,Average_Rating,ORDERS_TABLE.Status as "Status",
         ORDERS_TABLE.Total_amount as "Total_amount"
-        FROM CUSTOMER_TABLE INNER JOIN ORDERS_TABLE
+        FROM CUSTOMER_TABLE JOIN ORDERS_TABLE
         on CUSTOMER_TABLE.Customer_id = orders_table.Customer_id
         WHERE Total_amount>4500;"""
         self.execute_query(query)
@@ -127,7 +127,7 @@ class SQLQuerySet:
     def query11(self):
         query="""SELECT customer_table.Customer_id,Name,Email,Mobile_number,Location,
         count(Order_date) as "Frequency of orders made",
-        Total_orders FROM customer_table right join orders_table
+        Total_orders FROM customer_table join orders_table
         ON orders_table.Customer_id = customer_table.Customer_id
         where Total_orders>800
         group by customer_table.Customer_id;"""
@@ -149,7 +149,7 @@ class SQLQuerySet:
         query="""SELECT restaurant_table.Restaurant_id as "Restaurant_id",
         Restaurant_Name,Owner_name,contact_number,Location,
         count(Order_date) as "Frequency of orders received in a year",
-        Total_orders FROM restaurant_table right join orders_table
+        Total_orders FROM restaurant_table join orders_table
         ON orders_table.Restaurant_id = restaurant_table.Restaurant_id
         where Total_orders>800
         group by restaurant_table.Restaurant_id;"""
@@ -163,7 +163,7 @@ class SQLQuerySet:
         Customer_id,Restaurant_id,Order_date,Status,Feedback_rating,
         delivery_table.Delivery_time_in_min as "Delivery Time",
         delivery_table.Estimated_time_in_min as "Estimated Time"
-        FROM orders_table LEFT JOIN delivery_table 
+        FROM orders_table JOIN delivery_table 
         on orders_table.Order_id = delivery_table.Order_id
         where Delivery_time_in_min>Estimated_time_in_min;"""
         self.execute_query(query)
